@@ -1,8 +1,6 @@
-# Save script's current directory
-DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "${DIR}"
+cd "$(dirname "$0")"
 cp ./.bashrc ~/
-cp ./bash_profile ~/
+cp ./.bash_profile ~/
 
 
 # Install homebrew if its not installed
@@ -21,7 +19,7 @@ mkdir -p ~/.vim/autoload ~/.vim/bundle && curl -LSso ~/.vim/autoload/pathogen.vi
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 # Install Vundle Plugins
-cp ./vimrc ~/
+cp ./.vimrc ~/
 vim +PluginInstall +qall
 ~/.vim/bundle/YouCompleteMe/install.py
 
@@ -31,6 +29,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 
 chsh -s $(which zsh); ok
 
+cp ./.zshrc ~/
 cp ./remyagnoster.zsh-theme ~/.oh-my-zsh/themes/
 
 # Install Tmux
