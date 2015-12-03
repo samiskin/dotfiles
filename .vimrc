@@ -70,6 +70,9 @@ set relativenumber
 set number
 set smartcase
 
+" Disable comments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 
 
 imap jk <Esc>
@@ -119,6 +122,8 @@ set completeopt-=preview
 highlight PMenu ctermfg=0 ctermbg=4 gui=bold guibg=Red
 highlight PmenuSel ctermfg=8 ctermbg=12 gui=bold guibg=Red
 let g:tern_show_argument_hints='on_hold'
+let g:tern_show_signature_in_pum=1
+
 
 " CTags
 nnoremap <silent> <C-S-P> :CtrlPTag<cr>
