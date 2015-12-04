@@ -29,10 +29,16 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-foreplay'
 Plugin 'Valloric/YouCompleteMe'
 
- Plugin 'pangloss/vim-javascript'
+Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
+
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'guns/vim-clojure-static'
+Plugin 'guns/vim-clojure-highlight'
+
 
 
 call vundle#end()            " required
@@ -73,8 +79,6 @@ set smartcase
 " Disable comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-
-
 imap jk <Esc>
 map :W :w
 map :Q :q
@@ -99,9 +103,6 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 " Note: This brekas pasting from other registers but I don't really do that
 xnoremap p "_dP"
 
-
-
-
 " Crontab
 autocmd filetype crontab setlocal nobackup nowritebackup
 
@@ -123,6 +124,7 @@ highlight PMenu ctermfg=0 ctermbg=4 gui=bold guibg=Red
 highlight PmenuSel ctermfg=8 ctermbg=12 gui=bold guibg=Red
 let g:tern_show_argument_hints='on_hold'
 let g:tern_show_signature_in_pum=1
+nnoremap td :TernDef<CR>
 
 
 " CTags
@@ -186,8 +188,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-" let g:syntastic_javascript_checkers = ['eslint'] " Issue here is that it
-" lags
+let g:syntastic_javascript_checkers = ['eslint'] " Issue here is that it lags
+
 nnoremap <C-w>e :SyntasticCheck<CR>
 nnoremap <C-w><C-e> :SyntasticToggleMode<CR>
 
