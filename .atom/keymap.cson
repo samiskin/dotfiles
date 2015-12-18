@@ -1,0 +1,58 @@
+# Your keymap
+#
+# Atom keymaps work similarly to style sheets. Just as style sheets use
+# selectors to apply styles to elements, Atom keymaps use selectors to associate
+# keystrokes with events in specific contexts. Unlike style sheets however,
+# each selector can only be declared once.
+#
+# You can create a new keybinding in this file by typing "key" and then hitting
+# tab.
+#
+# Here's an example taken from Atom's built-in keymap:
+#
+# 'atom-text-editor':
+#   'enter': 'editor:newline'
+#
+# 'atom-workspace':
+#   'ctrl-shift-p': 'core:move-up'
+#   'ctrl-p': 'core:move-down'
+#
+# You can find more information about keymaps in these guides:
+# * https://atom.io/docs/latest/using-atom-basic-customization#customizing-key-bindings
+# * https://atom.io/docs/latest/behind-atom-keymaps-in-depth
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# https://atom.io/docs/latest/using-atom-basic-customization#cson
+
+'atom-workspace':
+  'ctrl-w t': 'tree-view:toggle-focus'
+  'ctrl-w ctrl-t': 'tree-view:toggle'
+  ': w enter': 'core:save'
+  'ctrl-a t h': 'term2:open-split-left'
+  'ctrl-a t j': 'term2:open-split-down'
+  'ctrl-a t k': 'term2:open-split-up'
+  'ctrl-a t l': 'term2:open-split-right'
+  'ctrl-a t t': 'term2:open'
+
+'atom-text-editor.vim-mode.insert-mode':
+  'j k': 'vim-mode:activate-normal-mode'
+
+'.tree-view':
+  'o': 'tree-view:open-selected-entry'
+  'ctrl-v': 'tree-view:open-selected-entry-right'
+
+'atom-text-editor.vim-mode:not(.insert-mode)':
+  'c c': 'custom:cc'
+  'ctrl-t': 'editor:transpose'
+
+'atom-text-editor.vim-mode.normal-mode':
+  'ctrl-t': 'editor:transpose'
+
+'.fuzzy-finder atom-text-editor[mini]':
+  'ctrl-v': 'pane:split-right'
+  'ctrl-s': 'pane:split-down'
+  'ctrl-t': 'fuzzy-finder:confirm'
+  'ctrl-j': 'core:move-down'
+  'ctrl-k': 'core:move-up'

@@ -76,6 +76,8 @@ set relativenumber
 set number
 set smartcase
 
+command Start !npm start
+
 " Disable comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
@@ -91,6 +93,8 @@ imap <C-w>l <Esc><C-w>l
 
 map <C-w>t :NERDTreeToggle<CR>
 imap <C-w>t <Esc>:NERDTreeToggle<CR>
+
+nnoremap <C-t> Xp
 
 nnoremap <C-j> :m .+1<CR>==
 inoremap <C-j> <Esc>:m .+1<CR>==gi
@@ -184,6 +188,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [], 'passive_filetypes': [] }
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
