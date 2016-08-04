@@ -8,49 +8,58 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+" Run :PluginInstall
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'craigemery/vim-autotag'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'kien/ctrlp.vim'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'mxw/vim-jsx'
-Plugin 'othree/yajs.vim'
 Plugin 'raimondi/delimitMate'
 Plugin 'rking/ag.vim'
+Plugin 'justinmk/vim-sneak'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'ternjs/tern_for_vim'
-Plugin 'terryma/vim-expand-region'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fireplace'
 Plugin 'tpope/vim-fugitive'
-" Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-foreplay'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'drmingdrmer/vim-syntax-markdown'
-
+Plugin 'tpope/vim-sensible' " Sensible defaults
+Plugin 'tpope/vim-surround' " Surround text with quotes
 Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
-
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'guns/vim-clojure-static'
-Plugin 'guns/vim-clojure-highlight'
-
+Plugin 'mxw/vim-jsx'
+Plugin 'othree/yajs.vim'
+Plugin 'vim-scripts/JavaScript-Libraries-Syntax'
 Plugin 'keith/tmux.vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'mhartington/vim-typings'
+Plugin 'hdima/python-syntax'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'flowtype/vim-flow'
+Plugin 'ternjs/tern_for_vim'
+Plugin 'godlygeek/tabular'
 
-
+" Plugin 'Shougo/vimproc.vim'
+" Plugin 'craigemery/vim-autotag'
+" Plugin 'terryma/vim-expand-region'
+" Plugin 'drmingdrmer/vim-syntax-markdown'
+" Plugin 'kien/rainbow_parentheses.vim'
+" Plugin 'guns/vim-clojure-static'
+" Plugin 'guns/vim-clojure-highlight'
+" Plugin 'Shougo/unite.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" To install pathogen:
-" mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-" curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-execute pathogen#infect()
+" Run :PlugInstall
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+call plug#end()
+
+" Make fzf use git repository
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
 
 
 syntax enable
@@ -58,10 +67,15 @@ set background=dark
 colorscheme solarized
 syntax on
 set nowrap
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set showtabline=2
+
+set noexpandtab " Make sure that every file uses real tabs, not spaces
+set shiftround  " Round indent to multiple of 'shiftwidth'
+set smartindent " Do smart indenting when starting a new line
+set autoindent  " Copy indent from current line, over to the new line
+
+set omnifunc=syntaxcomplete#Complete
+
+
 set expandtab
 set hidden
 set hls
@@ -78,7 +92,15 @@ set noeb
 set vb
 set relativenumber
 set number
+set ignorecase
 set smartcase
+set scrolloff=2
+
+if has('mouse_sgr')
+  set ttymouse=sgr
+endif
+
+
 
 " Disable comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -113,16 +135,29 @@ xnoremap p "_dP"
 autocmd filetype crontab setlocal nobackup nowritebackup
 
 " easymotion
-let g:EasyMotion_do_mapping = 0
-nmap s <Plug>(easymotion-s)
-let g:EasyMotion_smartcase = 1
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+" let g:EasyMotion_do_mapping = 0
+" nmap s <Plug>(easymotion-s)
+" let g:EasyMotion_smartcase = 1
+" map <Leader>j <Plug>(easymotion-j)
+" map <Leader>k <Plug>(easymotion-k)
+
+" vim-sneak
+let g:sneak#use_ic_scs = 1
+let g:sneak#s_next = 1
+let g:sneak#absolute_dir = 1
+" let g:sneak#streak = 1
+" hi link SneakStreakTarget ErrorMsg
+" hi link SneakPluginScope DiffChange
+hi link SneakPluginTarget pandocDefinitionTerm
+
+
+let g:flow#autoclose = 1
 
 " MacVim
 set guioptions=gmL
 
 " YouCompleteMe
+nnoremap <C-w>d :YcmCompleter GoToDefinition<CR>
 let g:ycm_add_preview_to_completeopt=0
 let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
@@ -132,6 +167,15 @@ let g:tern_show_argument_hints='on_hold'
 let g:tern_show_signature_in_pum=1
 nnoremap td :TernDef<CR>
 
+" inoremap <expr> <c-j> ("\<C-n>")
+" inoremap <expr> <c-k> ("\<C-p>")
+inoremap <expr> <C-j> pumvisible() ? '<C-n>' : '<C-j>'
+inoremap <expr> <C-k> pumvisible() ? '<C-p>' : '<C-k>'
+
+" Vim bookmarks
+let g:bookmark_auto_save = 1
+let g:bookmark_center = 1
+
 
 " CTags
 nnoremap <silent> <C-S-P> :CtrlPTag<cr>
@@ -139,6 +183,18 @@ nmap <silent> <C-b> <C-]>
 nmap <silent> <C-S-b> :tn<cr>
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+let g:syntastic_typescript_checkers = ['tsc']
+" let g:syntastic_typescript_tslint_args= '--jsx'
+let g:syntastic_typescript_tsc_args= '--jsx'
+" let g:syntastic_quiet_messages = {
+"   \ "!level": "errors",
+"   \ "type": "syntax",
+"   \ "regex": '*Cannot find module*',
+"   \ "file:p": ['*.tsx', '*.ts'] }
+
+" au BufNewFile,BufRead *.ts set syntax=javascript.jsx
+" au BufNewFile,BufRead *.tsx set syntax=javascript.jsx
 
 function! DelTagOfFile(file)
   let fullpath = a:file
@@ -176,13 +232,15 @@ vmap v <Plug>(expand_region_expand)
 
 
 " Ctrl P
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_custom_ignore = '(.*)/node_modules/(.*)$'
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_dont_split = 'nerdtree'
-set wildignore+=*/node_modules/*
-set modifiable
-let NERDTreeQuitOnOpen=1
+" set runtimepath^=~/.vim/bundle/ctrlp.vim
+" let g:ctrlp_custom_ignore = '(.*)/node_modules/(.*)$'
+" let g:ctrlp_working_path_mode = ""
+" let g:ctrlp_dont_split = 'nerdtree'
+" set wildignore+=*/node_modules/*
+" set modifiable
+" let NERDTreeQuitOnOpen=1
+" let g:ctrlp_max_files=0
+" let g:ctrlp_max_depth=40
 
 
 " Syntastic
@@ -223,9 +281,21 @@ set statusline+=%b,0x%-8B\                   " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
 
 set laststatus=1
+set rtp+=~/.fzf
+
+" FZF
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit',
+      \ 'ctrl-t': 'tab split'
+      \ }
+nnoremap <C-p> :FZF -m<CR>
 
 
-
-
-
+" Set the tab width
+let s:tabwidth=2
+exec 'set tabstop='    .s:tabwidth
+exec 'set shiftwidth=' .s:tabwidth
+exec 'set softtabstop='.s:tabwidth
+exec 'set showtabline='.s:tabwidth
 
