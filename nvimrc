@@ -16,7 +16,6 @@ call plug#begin('~/.vim/plugged')
 " Experimental
 Plug 'xolox/vim-notes'		        " Notes plugin
 Plug 'xolox/vim-misc'		        " Required for xolox plugins
-Plug 'ap/vim-buftabline'                " Tabs inside windows
 
 " General
 Plug 'terryma/vim-multiple-cursors'     " Allows multiple separate cursors
@@ -72,6 +71,7 @@ set expandtab				" Convert tabs to spaces
 set clipboard+=unnamedplus              " Use system clipbaord
 set splitbelow                          " Splits open downward
 set splitright                          " Or open rightward
+set showtabline=2                       " Always display the tab bar
 
 " http://www.johnhawthorn.com/2012/09/vi-escape-delays/
 set notimeout
@@ -161,7 +161,6 @@ hi! Folded term=NONE cterm=NONE gui=NONE ctermbg=NONE
 " ---------------------
 " 	Lightline
 " ---------------------
-" "\  'colorscheme': 'solarized',
 let g:lightline = {
 \  'active': {
 \    'left': [['mode', 'paste'],
