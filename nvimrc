@@ -6,11 +6,6 @@ inoremap jk <Esc>
 "  ----------------------------------------------------
 filetype plugin on                      " Some plugins break without this
 
-" Needed tor deoplete init plug
-function! DoRemote(arg)
-    UpdateRemotePlugins
-endfunction
-
 call plug#begin('~/.vim/plugged')
 
 " Experimental
@@ -18,13 +13,13 @@ Plug 'xolox/vim-notes'		        " Notes plugin
 Plug 'xolox/vim-misc'		        " Required for xolox plugins
 
 " General
-Plug 'terryma/vim-multiple-cursors'     " Allows multiple separate cursors
-Plug 'junegunn/vim-easy-align'          " Alignment for <Space> = : . | & # and ,
+" Plug 'terryma/vim-multiple-cursors'     " Allows multiple separate cursors
+" Plug 'junegunn/vim-easy-align'          " Alignment for <Space> = : . | & # and ,
 Plug 'junegunn/rainbow_parentheses.vim' " Parentheses changa color, where matching parentheses have the same color
 Plug 'raimondi/delimitMate'             " Autocreates parentheses
 Plug 'rking/ag.vim'                     " Run :Ag to run silver searcher
 Plug 'scrooloose/nerdtree'              " File navigation sidebar
-Plug 'itchyny/lightline.vim'            " Lightweight status line
+" Plug 'itchyny/lightline.vim'            " Lightweight status line
 Plug 'simnalamburt/vim-mundo'           " Display history as a tree
 Plug 'neomake/neomake'                  " Used for syntax checking
 Plug 'tpope/vim-commentary'             " Gcc to comment
@@ -32,10 +27,12 @@ Plug 'tpope/vim-fugitive'               " Git commands
 Plug 'tpope/vim-surround'               " Surround text
 Plug 'tpope/vim-sensible'               " Sensible defaults
 Plug 'tpope/vim-sleuth'                 " Autodetect tab settings
-Plug 'carlitux/deoplete-ternjs'         " Javascript autocompletion for deoplete
-Plug 'steelsojka/deoplete-flow'         " Flow autocompletion for deoplete
+" Plug 'carlitux/deoplete-ternjs'         " Javascript autocompletion for deoplete
+" Plug 'steelsojka/deoplete-flow'         " Flow autocompletion for deoplete
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }	" File fuzzy finder
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }             " Lightweight async autocompletion
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}             " Lightweight async autocompletion
+" Plug 'Shougo/neoinclude.vim'
+" Plug 'zchee/deoplete-clang'
 
 " Colors / Syntax
 Plug 'altercation/vim-colors-solarized'
@@ -49,6 +46,7 @@ Plug 'lilydjwg/colorizer', { 'for': ['css', 'sass', 'scss', 'less', 'html', 'xde
 Plug 'keith/tmux.vim'
 Plug 'honza/dockerfile.vim'
 Plug 'tpope/vim-markdown'
+Plug 'leafgarland/typescript-vim'
 
 cal plug#end()
 
@@ -71,7 +69,8 @@ set expandtab				" Convert tabs to spaces
 set clipboard+=unnamedplus              " Use system clipbaord
 set splitbelow                          " Splits open downward
 set splitright                          " Or open rightward
-set showtabline=2                       " Always display the tab bar
+set showtabline=0                       " Never display the tab bar
+set shortmess+=A                        " Don't show "ATTENTION" messages for existing swap file
 
 " http://www.johnhawthorn.com/2012/09/vi-escape-delays/
 set notimeout
@@ -87,6 +86,8 @@ set incsearch				" Incrementally searches as you type
 " Disable auto-commenting when pressing Enter in a comment block
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" Makefiles
+autocmd FileType make setlocal noexpandtab
 
 " ---------------------
 "     Keybindings
@@ -95,6 +96,12 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Allow for mistakes in save/quitting
 map :W :w
 map :Q :q
+
+nnoremap <C-j> :bn<CR>
+nnoremap <C-k> :bp<CR>
+inoremap <C-j> :bn<CR>
+inoremap <C-k> :bp<CR>
+
 
 " Allow navigation from insert mode
 imap <C-w>h <Esc><C-w>h
@@ -145,8 +152,33 @@ syntax enable
 set background=dark
 colorscheme solarized
 
+hi LineNr ctermfg=237
 " Disable the thick vertical split bar
 hi VertSplit ctermbg=NONE guibg=NONE
+hi StatusLine ctermfg=Black ctermbg=245
+hi StatusLineNC ctermfg=Black ctermbg=237
+hi NonText ctermfg=237
+set fillchars=vert:\ ,stl:\ ,stlnc:\ 
+" hi Search ctermbg=58 ctermfg=15
+" hi Default ctermfg=1
+" hi clear SignColumn
+" hi SignColumn ctermbg=235
+" hi GitGutterAdd ctermbg=235 ctermfg=245
+" hi GitGutterChange ctermbg=235 ctermfg=245
+" hi GitGutterDelete ctermbg=235 ctermfg=245
+" hi GitGutterChangeDelete ctermbg=235 ctermfg=245
+" hi EndOfBuffer ctermfg=237 ctermbg=235
+
+set laststatus=2
+set noshowmode " Hide second status"
+set statusline=%=%f\ %m\ \[%c\,%l\]
+
+hi Normal ctermbg=black
+
+" hi TabLineFill ctermfg=Black ctermbg=Black
+" hi TabLine ctermfg=Black ctermbg=Black
+" hi TabLineSel ctermfg=Black ctermbg=Black
+" set tabline=none
 
 " Show trailing whitespace
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -194,6 +226,7 @@ let g:fzf_action = {
 " ---------------------
 "      Neomake
 " ---------------------
+let g:neomake_javascript_eslint_exe = $PWD .'/node_modules/.bin/eslint'
 let g:neomake_javascript_enabled_makers = ['eslint', 'flow']    " Make javascript use eslint
 nnoremap <C-w>e :Neomake!<CR>
 autocmd! BufWritePost * Neomake                         " Autorun on every write
@@ -228,8 +261,8 @@ let g:deoplete#enable_at_startup = 1
 let g:tern_request_timeout=1
 let g:tern_show_signature_in_pum=1
 set completeopt-=preview                    " Don't show preview scratch buffers
-let g:deoplete#sources={}
-let g:deoplete#sources['javascript.jsx'] = ['buffer', 'file', 'ternjs', 'flow']
+"let g:deoplete#sources={}
+"let g:deoplete#sources['javascript.jsx'] = ['buffer', 'file', 'ternjs', 'flow']
 
 " Enable tab completion
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"

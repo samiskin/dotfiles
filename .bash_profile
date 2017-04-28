@@ -57,3 +57,23 @@ set -o vi
 if [ -f /opt/local/etc/bash_completion ]; then
       . /opt/local/etc/bash_completion
     fi
+
+
+
+
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+autoload -U colors && colors
+source /Library/Developer/CommandLineTools/usr/share/git-core/git-prompt.sh
+
+eval $(thefuck --alias)
+
+
+alias ag='ag --path-to-ignore ~/.agignore'
+alias emacs="/usr/local/Cellar/emacs-plus/25.1/Emacs.app/Contents/MacOS/Emacs"
+alias e="/usr/local/Cellar/emacs-plus/25.1/bin/emacsclient"
+
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore submodules -g ""'
+
+
