@@ -30,9 +30,12 @@ Plug 'tpope/vim-sleuth'                 " Autodetect tab settings
 " Plug 'carlitux/deoplete-ternjs'         " Javascript autocompletion for deoplete
 " Plug 'steelsojka/deoplete-flow'         " Flow autocompletion for deoplete
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }	" File fuzzy finder
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}             " Lightweight async autocompletion
-" Plug 'Shougo/neoinclude.vim'
-" Plug 'zchee/deoplete-clang'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}             " Lightweight async autocompletion
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}                              " Async execution, used by ghcmod
+Plug 'eagletmt/ghcmod-vim'            " Haskell compilation
+Plug 'eagletmt/neco-ghc'              " Haskell autocompletion
+Plug 'ervandew/supertab'              " Better tab completion
+Plug 'racer-rust/vim-racer'
 
 " Colors / Syntax
 Plug 'altercation/vim-colors-solarized'
@@ -47,6 +50,7 @@ Plug 'keith/tmux.vim'
 Plug 'honza/dockerfile.vim'
 Plug 'tpope/vim-markdown'
 Plug 'leafgarland/typescript-vim'
+Plug 'rust-lang/rust.vim'
 
 cal plug#end()
 
@@ -88,6 +92,9 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Makefiles
 autocmd FileType make setlocal noexpandtab
+
+" Disable line for vertical splits
+hi VertSplit ctermbg=NONE guibg=NONE
 
 " ---------------------
 "     Keybindings
@@ -189,6 +196,10 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Remove underline in folded lines
 hi! Folded term=NONE cterm=NONE gui=NONE ctermbg=NONE
+
+" Typescript syntax
+au BufNewFile,BufRead *.ts set syntax=javascript.jsx
+au BufNewFile,BufRead *.tsx set syntax=javascript.jsx
 
 " ---------------------
 " 	Lightline
@@ -296,7 +307,7 @@ nmap ga <Plug>(EasyAlign)
 
 let g:notes_directories = ['~/Dropbox/Notes']
 let g:notes_suffix = '.md'
-
+highlight link notesName Normal
 
 
 " ---------------------
@@ -331,3 +342,24 @@ let g:javascript_plugin_jsdoc=1
 let g:javascript_plugin_flow=1
 
 
+
+" ---------------------
+"       Haskell
+" ---------------------
+" From http://www.stephendiehl.com/posts/vim_2016.html
+map <silent> tw :GhcModTypeInsert<CR>
+map <silent> ts :GhcModSplitFunCase<CR>
+map <silent> tt :GhcModType<CR>
+map <silent> tr :GhcModTypeClear<CR>
+
+
+let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+if has("gui_running")
+  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+else " no gui
+  if has("unix")
+    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+  endif
+endif
+
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
