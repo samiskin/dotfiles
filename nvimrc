@@ -32,10 +32,12 @@ Plug 'tpope/vim-sleuth'                 " Autodetect tab settings
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }	" File fuzzy finder
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}             " Lightweight async autocompletion
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}                              " Async execution, used by ghcmod
-Plug 'eagletmt/ghcmod-vim'            " Haskell compilation
-Plug 'eagletmt/neco-ghc'              " Haskell autocompletion
+" Plug 'eagletmt/ghcmod-vim'            " Haskell compilation
+" Plug 'eagletmt/neco-ghc'              " Haskell autocompletion
 Plug 'ervandew/supertab'              " Better tab completion
 Plug 'racer-rust/vim-racer'
+Plug 'rust-lang/rust.vim'
+Plug 'Shougo/echodoc.vim'             " Show documentation on cursor hover
 
 " Colors / Syntax
 Plug 'altercation/vim-colors-solarized'
@@ -50,9 +52,9 @@ Plug 'keith/tmux.vim'
 Plug 'honza/dockerfile.vim'
 Plug 'tpope/vim-markdown'
 Plug 'leafgarland/typescript-vim'
-Plug 'rust-lang/rust.vim'
+Plug 'cespare/vim-toml'
 
-cal plug#end()
+call plug#end()
 
 
 " ------------------------------------------------------
@@ -242,6 +244,10 @@ let g:neomake_javascript_enabled_makers = ['eslint', 'flow']    " Make javascrip
 nnoremap <C-w>e :Neomake!<CR>
 autocmd! BufWritePost * Neomake                         " Autorun on every write
 hi SignColumn ctermbg=none                              " Make the vertical error bar invisible
+let g:neomake_rust_cargo_command = ['test', '--no-run']
+let g:neomake_python_enabled_makers = ['pylint']
+let g:neomake_python_pylint_command = ['--disable=all', '--enable=syntax-error']
+
 
 " ---------------------
 "        NERDTree
@@ -363,3 +369,14 @@ else " no gui
 endif
 
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
+
+
+
+" ---------------------
+"         Rust
+" ---------------------
+let g:rustfmt_autosave = 1
+let g:racer_experimental_completer = 1
+let g:echodoc_enable_at_startup = 1
+set cmdheight=2
+let g:syntastic_rust_checkers = ['rustc']

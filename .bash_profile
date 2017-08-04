@@ -2,6 +2,7 @@ source ~/.bashrc
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
 
 
+alias vim=nvim
 
 export PATH="$PATH:/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin:/Users/samiskin/imgcat.sh"
 export PKG_CONFIG_PATH=/usr/X11/lib/pkgconfig
