@@ -1,0 +1,109 @@
+-------------------
+       Mac
+-------------------
+- Set background
+- Keyboard Settings
+    - Map Caps Lock to Ctrl
+    - Set Key Repeat to Fast
+    - Set Delay Until Repeat to Short
+    - Create 5 Spaces, then in Shortcuts -> MissionControl -> Mission Control
+      activate "Switch to Desktop X" shortcuts
+- Install Divvy
+- Install F.lux
+- Install StayFocusd
+- Dock Settings
+    - Size: Closer to Small
+    - Position on Screen: Right
+- General Settings
+    - Appearance: Graphite
+    - Use dark menu bar and Dock
+- Trackpad Settings
+    - Tap to Click
+
+-------------------
+     iTerm2
+-------------------
+Install iTerm2 Nightly
+
+General
+- Selection: Check "Applications in terminal may access clipbaord"
+
+Appearance
+- Theme: Dark
+- Create new profile, set as default
+- Add DISABLE_AUTO_TITLE="true" in ~/.zprofile
+- Window & Tab Titles set to "Show profile name" only
+
+Advanced
+- Height of top and bottom margins in terminal panes: 10
+- Width of left and right margins in terminal panes: 10
+
+---------------------
+   Mac Installation
+---------------------
+" Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+" Install brew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+brew install the_silver_searcher
+brew install tmux
+brew install neofetch
+brew install coreutils --with-default-names
+
+-------------------
+     Symlinks
+-------------------
+ln -s ~/Code/dotfiles/bashrc ~/.bashrc
+ln -s ~/Code/dotfiles/zprofile ~/.zprofile
+ln -s ~/Code/dotfiles/agignore ~/.agignore
+ln -s ~/Code/dotfiles/vimrc.colors ~/.vimrc.colors
+ln -s ~/Code/dotfiles/vimrc ~/.vimrc
+ln -s ~/Code/dotfiles/tmux.conf ~/.tmux.conf
+ln -s ~/Code/dotfiles/gitignore_global ~/.gitignore_global
+
+git config --global core.excludesfile ~/.gitignore_global
+" Look into https://geoff.greer.fm/lscolors/ to customize ls colors
+-------------------
+        Vim
+-------------------
+
+" Install Plug.vim and install Plugins
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vim +PlugInstall +qall
+
+" Add undodir for "set undofile"
+mkdir ~/.vim/undodir
+
+
+-------------------
+      TODO
+-------------------
+LS_COLORS setup
+PWD
+Figure out SSH scenario with ROS
+
+
+
+Solarized To My Colors
+
+" SOLARIZED HEX     CUSTOM  16/8 TERMCOL  XTERM/HEX   L*A*B      RGB         HSB
+" --------- ------- ------- ---- -------  ----------- ---------- ----------- -----------
+" base03    #002b36 #191919  8/4 brblack  234 #1c1c1c 15 -12 -12   0  43  54 193 100  21
+" base02    #073642 #404040  0/4 black    235 #262626 20 -12 -12   7  54  66 192  90  26
+" base01    #586e75 #5a6e75 10/7 brgreen  240 #585858 45 -07 -07  88 110 117 194  25  46
+" base00    #657b83 #fada21 11/7 bryellow 241 #626262 50 -07 -07 101 123 131 195  23  51
+" base0     #839496 #d3d3d3 12/6 brblue   244 #808080 60 -06 -03 131 148 150 186  13  59
+" base1     #93a1a1 #0098cf 14/4 brcyan   245 #8a8a8a 65 -05 -02 147 161 161 180   9  63
+" base2     #eee8d5 #ffffff  7/7 white    254 #e4e4e4 92 -00  10 238 232 213  44  11  93
+" base3     #fdf6e3 #f9f9f9 15/7 brwhite  230 #ffffd7 97  00  10 253 246 227  44  10  99
+" yellow    #b58900 #faad21  3/3 yellow   136 #af8700 60  10  65 181 137   0  45 100  71
+" orange    #cb4b16 #fa7921  9/3 brred    166 #d75f00 50  50  55 203  75  22  18  89  80
+" red       #dc322f #e55934  1/1 red      160 #d70000 50  65  45 220  50  47   1  79  86
+" magenta   #d33682 #c871c8  5/5 magenta  125 #af005f 50  65 -05 211  54 130 331  74  83
+" violet    #6c71c4 #c594c5 13/5 brmagenta 61 #5f5faf 50  15 -45 108 113 196 237  45  77
+" blue      #268bd2 #00a5ff  4/4 blue      33 #0087ff 55 -10 -45  38 139 210 205  82  82
+" cyan      #2aa198 #2ea4a4  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
+" green     #859900 #23c897  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60

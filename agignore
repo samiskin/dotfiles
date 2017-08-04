@@ -1,0 +1,12 @@
+node_modules
+.git
+*.lock
+**/target/**
+.atom
+.fzf
+.cache
+.npm
+.oh-my-zsh
+.Trash
+.vim
+
