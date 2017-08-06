@@ -160,13 +160,13 @@ call <sid>hi('Operator',                   s:base05, '',       '',          '')
 call <sid>hi('PreProc',                    s:base09, '',       '',          '')
 call <sid>hi('Repeat',                     s:base0D, '',       '',          '')
 call <sid>hi('Special',                    s:base12, '',       '',          '')
-call <sid>hi('SpecialChar',                s:base10, '',       '',          '')
+call <sid>hi('SpecialChar',                s:base11, '',       '',          '')
 call <sid>hi('Statement',                  s:base08, '',       '',          '')
 call <sid>hi('StorageClass',               s:base0C, '',       '',          '')
 call <sid>hi('String',                     s:base0A, '',       '',          '')
 call <sid>hi('Structure',                  s:base11, '',       '',          '')
 call <sid>hi('Tag',                        s:base0D, '',       '',          '')
-call <sid>hi('Todo',                       s:base10, '',       'bold',      '')
+call <sid>hi('Todo',                       s:base11, '',       'bold',      '')
 call <sid>hi('Type',                       s:base0C, '',       '',          '')
 call <sid>hi('Typedef',                    s:base0C, '',       '',          '')
 
@@ -269,8 +269,8 @@ call <sid>hi('vimBracket',                 s:base08, '',       '',          '')
 call <sid>hi('vimNotation',                s:base08, '',       '',          '')
 call <sid>hi('vimUserFunc',                s:base0E, '',       '',          '')
 call <sid>hi('vimIsCommand',               s:base0D, '',       '',          '')
-call <sid>hi('vimTodo',                    s:base10, '',       'bold',          '')
-call <sid>hi('vimCommentTitle',            s:base10, '',       'bold',          '')
+call <sid>hi('vimTodo',                    s:base11, '',       'bold',          '')
+call <sid>hi('vimCommentTitle',            s:base11, '',       'bold',          '')
 
 call <sid>hi('GitGutterAdd',               s:base0A, s:base00, s:bold,      '')
 call <sid>hi('GitGutterChange',            s:base0E, s:base00, s:bold,      '')
@@ -287,7 +287,7 @@ call <sid>hi('gitcommitUnmergedType',      s:base08, '',        '',      '')
 call <sid>hi('gitcommitUnmergedFile',      s:base0C, '',        '',      '')
 call <sid>hi('gitcommitSelectedType',      s:base0A, '',        '',      '')
 
-call <sid>hi('shTodo',                     s:base10, '',       'bold',      '')
+call <sid>hi('shTodo',                     s:base11, '',       'bold',      '')
 call <sid>hi('shSet',                      s:base0A, '',       '',          '')
 call <sid>hi('shSingleQuote',              s:base12, '',       '',          '')
 " }}}
@@ -306,7 +306,7 @@ let g:terminal_color_10=s:base01[0]
 let g:terminal_color_11=s:base02[0]
 let g:terminal_color_12=s:base04[0]
 let g:terminal_color_13=s:base06[0]
-let g:terminal_color_14=s:base10[0]
+let g:terminal_color_14=s:base11[0]
 let g:terminal_color_15=s:base07[0]
 let g:terminal_color_background=s:base00[0]
 let g:terminal_color_foreground=s:base14[0]

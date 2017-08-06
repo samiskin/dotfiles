@@ -1,20 +1,7 @@
-# Connect/create tmux grouped session automatically.
-if [ -z "$TMUX" ]; then
-    tmux new-session -t main \; set-option destroy-unattached || tmux new-session -s main
-fi
-
-
 echo -en "\033]0; \a"       # Hide Title
 
 alias ag='ag --path-to-ignore ~/.agignore'
-[ -z "$ZSH_NAME" ] && [ -f ~/.fzf.bash ] && source ~/.fzf.bash # Fzf Hotkeys
-
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-
-# TODO: Fix this stuff
-export CLICOLOR=1
-# LSCOLORS=$LSCOLORS:'di=0;35:' ; export LSCOLORS
-# LS_COLORS+='ow=0;35:' ; export LS_COLORS
 
 # Colorscheme
 export    BLACK='#191919'
@@ -41,3 +28,9 @@ export    BASE4='#656565'
 export    BASE5='#c0c5ce'
 export    BASE6='#d3d3d3'
 export    BASE7='#d8dee9'
+
+
+# Connect/create tmux grouped session automatically.
+if [ -z "$TMUX" ]; then
+    tmux new-session -t main \; set-option destroy-unattached || tmux new-session -s main
+fi
