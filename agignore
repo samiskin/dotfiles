@@ -1,3 +1,4 @@
+build
 node_modules
 .git
 *.lock
@@ -9,4 +10,4 @@ node_modules
 .oh-my-zsh
 .Trash
 .vim
-
+cmake-build-debug

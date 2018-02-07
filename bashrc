@@ -34,3 +34,4 @@ export    BASE7='#d8dee9'
 if [ -z "$TMUX" ]; then
     tmux new-session -t main \; set-option destroy-unattached || tmux new-session -s main
 fi
+
