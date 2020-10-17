@@ -49,6 +49,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 brew install the_silver_searcher
 brew install tmux
+brew install cmake
 brew install neofetch
 brew install coreutils --with-default-names
 
