@@ -11,6 +11,7 @@
 - Install Divvy
 - Install F.lux
 - Install StayFocusd
+- Install Time Out
 - Dock Settings
     - Size: Closer to Small
     - Position on Screen: Right
@@ -29,7 +30,9 @@ General
 - Selection: Check "Applications in terminal may access clipbaord"
 
 Appearance
-- Theme: Dark
+- Theme: Compact
+
+Profile:
 - Create new profile, set as default
 - Add DISABLE_AUTO_TITLE="true" in ~/.zprofile
 - Window & Tab Titles set to "Show profile name" only
@@ -49,6 +52,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 brew install the_silver_searcher
 brew install tmux
+brew install neovim
 brew install cmake
 brew install neofetch
 brew install coreutils --with-default-names
@@ -63,6 +67,10 @@ ln -s ~/Code/dotfiles/vimrc.colors ~/.vimrc.colors
 ln -s ~/Code/dotfiles/vimrc ~/.vimrc
 ln -s ~/Code/dotfiles/tmux.conf ~/.tmux.conf
 ln -s ~/Code/dotfiles/gitignore_global ~/.gitignore_global
+
+mkdir -p ~/.config/nvim
+ln -s ~/Code/dotfiles/init.vim ~/.config/nvim/init.vim
+ln -s ~/Code/dotfiles/init.vim ~/init.vim
 
 git config --global core.excludesfile ~/.gitignore_global
 " Look into https://geoff.greer.fm/lscolors/ to customize ls colors

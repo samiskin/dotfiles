@@ -34,6 +34,8 @@ export    BASE5='#c0c5ce'
 export    BASE6='#d3d3d3'
 export    BASE7='#d8dee9'
 
+export DISABLE_AUTO_TITLE='true'
+
 export GITHUB_TOKEN='db0ed065275881e79694f62218486a639090596d'
 # export AWS_ACCESS_KEY_ID='AKIAJC6XFHB5UYQTR3BA'
 # export AWS_SECRET_ACCESS_KEY='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'
@@ -52,7 +54,7 @@ fi
 
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-source ~/.bash_profile
+# source ~/.bash_profile
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
