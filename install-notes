@@ -8,7 +8,8 @@
     - Set Delay Until Repeat to Short
     - Create 5 Spaces, then in Shortcuts -> MissionControl -> Mission Control
       activate "Switch to Desktop X" shortcuts
-- Install Divvy
+- Install Spectacle, change the default Fullscreen binding
+- Install Karabiner Elements, get leftctrl+hjkl -> arrows binding online, set capslock->ctrl
 - Install F.lux
 - Install StayFocusd
 - Install Time Out
@@ -33,13 +34,7 @@ Appearance
 - Theme: Compact
 
 Profile:
-- Create new profile, set as default
-- Add DISABLE_AUTO_TITLE="true" in ~/.zprofile
-- Window & Tab Titles set to "Show profile name" only
-
-Advanced
-- Height of top and bottom margins in terminal panes: 10
-- Width of left and right margins in terminal panes: 10
+- Import profile Clean, set as default
 
 ---------------------
    Mac Installation
@@ -50,17 +45,27 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 " Install brew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
+" Install node version manager
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
+nvm install node
+npm install --global yarn
+brew install python
+
+" Fix 'node is not executable' issue in coc
+nvm alias command node
+
 brew install the_silver_searcher
 brew install tmux
 brew install neovim
 brew install cmake
 brew install neofetch
-brew install coreutils --with-default-names
 
 -------------------
      Symlinks
 -------------------
 ln -s ~/Code/dotfiles/bashrc ~/.bashrc
+rm ~/.zprofile
 ln -s ~/Code/dotfiles/zprofile ~/.zprofile
 ln -s ~/Code/dotfiles/agignore ~/.agignore
 ln -s ~/Code/dotfiles/vimrc.colors ~/.vimrc.colors
@@ -72,8 +77,32 @@ mkdir -p ~/.config/nvim
 ln -s ~/Code/dotfiles/init.vim ~/.config/nvim/init.vim
 ln -s ~/Code/dotfiles/init.vim ~/init.vim
 
+-------------------
+        Git
+-------------------
+
 git config --global core.excludesfile ~/.gitignore_global
 " Look into https://geoff.greer.fm/lscolors/ to customize ls colors
+
+ssh-keygen -t ed25519 -C "shiranka.miskin@gmail.com"
+eval "$(ssh-agent -s)"
+touch ~/.ssh/config
+
+" Add this to ssh/config:
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_ed25519
+
+ssh-add -K ~/.ssh/id_ed25519
+
+cat ~/.ssh/id_ed25519.pub | pbcopy
+Go to https://github.com/settings/ssh/new and paste it in
+
+
+
+
+
 -------------------
         Vim
 -------------------
@@ -82,6 +111,14 @@ git config --global core.excludesfile ~/.gitignore_global
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vim +PlugInstall +qall
+
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+" Install providers for coc
+npm install -g neovim
+gem install neovim
+python3 -m pip install --user --upgrade pynvim
 
 " Add undodir for "set undofile"
 mkdir ~/.vim/undodir
@@ -92,7 +129,6 @@ mkdir ~/.vim/undodir
 -------------------
 LS_COLORS setup
 PWD
-Figure out SSH scenario with ROS
 
 
 
