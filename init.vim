@@ -47,6 +47,8 @@ let g:fzf_action = {
 " NERDTree
 map <C-w>t :NERDTreeToggle<CR>
 imap <C-w>t <Esc>:NERDTreeToggle<CR>
+map <C-w><C-t> :NERDTree %<CR>
+imap <C-w><C-t> <Esc>:NERDTree %<CR>
 let NERDTreeShowHidden=1                " Show dotfiles
 
 " vim-notes
@@ -60,8 +62,10 @@ let g:coc_global_extensions = [
   \ 'coc-pairs',
   \ 'coc-tsserver',
   \ 'coc-tslint',
+  \ 'coc-eslint',
   \ 'coc-prettier',
   \ 'coc-json',
+  \ 'coc-clangd',
   \ ]
   " \ 'coc-eslint',
 set hidden " Some servers have issues with backup files, see #649
@@ -118,6 +122,10 @@ nmap <C-e>r <Plug>(coc-rename)
 " Remap for format selected region
 xmap <C-e>f  <Plug>(coc-format-selected)
 nmap <C-e>f  <Plug>(coc-format-selected)
+xmap <C-e><C-f>  <Plug>(coc-format-selected)
+nmap <C-e><C-f>  <Plug>(coc-format-selected)
+map <C-e><C-f> :CocCommand prettier.formatFile<CR>
+imap <C-e><C-f> <Esc>:CocCommand prettier.formatFile<CR>
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -127,6 +135,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Set up Prettier command
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+command! -nargs=0 Pt :CocCommand prettier.formatFile
 
 " Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
 nmap <silent> <C-e>d <Plug>(coc-range-select)

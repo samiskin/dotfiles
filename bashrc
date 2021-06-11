@@ -8,6 +8,12 @@ if type nvim > /dev/null 2>&1; then
   alias vim='nvim'
 fi
 
+
+export NPM_TOKEN=923e0797-2c4f-45ed-b164-2833582ceda5
+
+# Neovim's python3 sometimes errors with "Fatal Python error: config_get_locale_encoding"
+export LANG="en_US.UTF-8"
+
 # Colorscheme
 export    BLACK='#101010'
 export   BBLACK='#404040'
@@ -55,10 +61,6 @@ fi
 
 # [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # source ~/.bash_profile
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias grc='git rebase --continue'
 alias gca='git commit --amend'
